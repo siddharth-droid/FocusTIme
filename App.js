@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import {Focus} from './src/features/focus/Focus';
 
 export default function App() {
-  const [focusSubject, setFocusSuject] = useState('hello world');
+  const [focusSubject, setFocusSuject] = useState(null);
 
   return (
     <View style={styles.container}>
       {focusSubject ? (
         <Text>I have an object</Text>
       ) : (
-        <Text>Not have any object</Text>
+        <Focus addSubject = {setFocusSuject} />
       )}
+      <Text>{focusSubject}</Text>
     </View>
   );
 }
@@ -18,6 +20,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 50,
+    backgroundColor: '#252250'
   },
 });
