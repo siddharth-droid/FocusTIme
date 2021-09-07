@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 
 import { RoundedButton } from '../../components/RoundedButton';
 
-export const Timing = ({ changeTime }) => {
+export const Timing = ({ onChangeTime }) => {
   return (
     <>
       <View style={styles.timingButton}>

@@ -5,13 +5,19 @@ import { Timer } from './src/features/timer/Timer';
 import { colors } from './src/utils/colors';
 import { spacing } from './src/utils/sizes';
 
+
 export default function App() {
+
+
   const [focusSubject, setFocusSuject] = useState('gardenungasd');
 
   return (
     <View style={styles.container}>
       {focusSubject ?
-       <Timer focusSubject = {focusSubject}/> : 
+       <Timer focusSubject = {focusSubject} onTimerEnd={()=>{
+         setFocusSuject(null);
+       }}
+       /> : 
       <Focus addSubject={setFocusSuject} />}
     </View>
   );
