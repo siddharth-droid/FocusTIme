@@ -13,6 +13,8 @@ export const Countdown = ({
   }) => {
 
   const interval = React.useRef(null);
+  const [millis, setMillis] = useState(null);
+
 
   const countDown =() =>{
     setMillis((time)=>{
@@ -25,6 +27,11 @@ export const Countdown = ({
     })
   }
 
+// for the timing buttons
+  useEffect(()=>{
+    setMillis(minutesToMillis(minutes))
+  },[minutes])
+
   useEffect(()=>{
     if(isPaused){
       return; // if paused then do nothing
@@ -34,7 +41,6 @@ export const Countdown = ({
   },[isPaused])
   //the ispaused use here indicates that run only when youre not paused
 
-  const [millis, setMillis] = useState(minutesToMillis(minutes));
 
   const minute = Math.floor(millis / 1000 / 60) % 60;
   const seconds = Math.floor(millis / 1000) % 60;
