@@ -5,8 +5,18 @@ import { Timer } from './src/features/timer/Timer';
 import { colors } from './src/utils/colors';
 import { spacing } from './src/utils/sizes';
 
+const STATUSES = {
+  COMPLETE: 1,
+  CANCELLED: 2,
+};
+
 export default function App() {
-  const [focusSubject, setFocusSuject] = useState('gardenungasd');
+  const [focusSubject, setFocusSuject] = useState(null);
+  const [focusHistory, setFocusHistory] = useState([]);
+
+  const addFocusHistorySubjectWithState = (subject, status) => {
+    setFocusHistory([...focusHistory, { subject, status }]);
+  };
 
   return (
     <View style={styles.container}>
@@ -14,9 +24,13 @@ export default function App() {
         <Timer
           focusSubject={focusSubject}
           onTimerEnd={() => {
+            addFocusHistorySubjectWithState(focusSubject, STATUSES.COMPLETE);
             setFocusSuject(null);
           }}
-          clearSubject={() => setFocusSuject(null)}
+          clearSubject={() => {
+            addFocusHistorySubjectWithState(focusSubject, STATUSES.CANCELLED);
+            setFocusSuject(null);
+          }}
         />
       ) : (
         <Focus addSubject={setFocusSuject} />
@@ -27,7 +41,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === 'ios' ? spacing.md : spacing.lg, 
+    paddingTop: Platform.OS === 'ios' ? spacing.md : spacing.lg,
     flex: 1,
     backgroundColor: colors.darkBlue,
   },
