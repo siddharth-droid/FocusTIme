@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { fontSizes, spacing } from '../utils/sizes';
 import { colors } from '../utils/colors';
@@ -6,44 +6,41 @@ import { colors } from '../utils/colors';
 const minutesToMillis = (min) => min * 1000 * 60;
 const formatTime = (time) => (time < 10 ? `0${time}` : time);
 
-export const Countdown = ({ 
-  minutes = 1, 
-  isPaused , 
-  onProgress,
-  onEnd
-  }) => {
-
+export const Countdown = ({ minutes = 1, isPaused, onProgress, onEnd }) => {
   const interval = React.useRef(null);
   const [millis, setMillis] = useState(null);
 
-
-  const countDown =() =>{
-    setMillis((time)=>{
-      if(time===0){
+  const countDown = () => {
+    setMillis((time) => {
+      if (time === 0) {
         clearInterval(interval.current);
-        onEnd();
         return time;
       }
-      const timeLeft = time-1000;
-      onProgress(timeLeft/minutesToMillis(minutes))
+      const timeLeft = time - 1000;
       return timeLeft;
-    })
-  }
+    });
+  };
 
-// for the timing buttons
-  useEffect(()=>{
-    setMillis(minutesToMillis(minutes))
-  },[minutes])
+  // for the timing buttons
+  useEffect(() => {
+    setMillis(minutesToMillis(minutes));
+  }, [minutes]);
 
-  useEffect(()=>{
-    if(isPaused){
+  useEffect(() => {
+    onProgress(millis / minutesToMillis(minutes));
+    if (millis === 0) {
+      onEnd();
+    }
+  }, [millis]);
+
+  useEffect(() => {
+    if (isPaused) {
       return; // if paused then do nothing
     }
-    interval.current = setInterval(countDown,1000);
-    return ()=> clearInterval(interval.current)
-  },[isPaused])
+    interval.current = setInterval(countDown, 1000);
+    return () => clearInterval(interval.current);
+  }, [isPaused]);
   //the ispaused use here indicates that run only when youre not paused
-
 
   const minute = Math.floor(millis / 1000 / 60) % 60;
   const seconds = Math.floor(millis / 1000) % 60;
