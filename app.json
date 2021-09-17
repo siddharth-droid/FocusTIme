@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "focustime",
-    "slug": "snack-34152c84-8092-4f07-976f-e12f04819632",
+    "name": "FocusTime",
+    "slug": "FocusTime",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,6 +20,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package":"idkfocustime.focustimeapp",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

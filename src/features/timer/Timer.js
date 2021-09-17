@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, Vibration, Platform } from 'react-native';
-import { ProgressBar } from 'react-native-paper';
-import { useKeepAwake } from 'expo-keep-awake';
+import React, { useState } from "react";
+import { View, StyleSheet, Text, Vibration, Platform } from "react-native";
+import { ProgressBar } from "react-native-paper";
+import { useKeepAwake } from "expo-keep-awake";
 
-import { colors } from '../../utils/colors';
-import { spacing } from '../../utils/sizes';
-import { Countdown } from '../../components/Countdown';
-import { RoundedButton } from '../../components/RoundedButton';
-import { Timing } from './Timing';
+import { colors } from "../../utils/colors";
+import { spacing } from "../../utils/sizes";
+import { Countdown } from "../../components/Countdown";
+import { RoundedButton } from "../../components/RoundedButton";
+import { Timing } from "./Timing";
 
 const DEFAULT_TIME = 0.1;
 export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
@@ -21,7 +21,7 @@ export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
   };
 
   const vibrate = () => {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === "ios") {
       const interval = setInterval(() => Vibration.vibrate(), 1000);
       setTimeout(() => clearInterval(interval), 10000); // clearing interval after 10 seconds
     } else {
@@ -34,13 +34,13 @@ export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
     setMinutes(DEFAULT_TIME);
     setProgress(1);
     setIsStarted(false);
+    onTimerEnd();
   };
 
   const changeTime = (min) => {
     setMinutes(min);
     setProgress(1);
     setIsStarted(false);
-    onTimerEnd();
   };
 
   return (
@@ -57,7 +57,7 @@ export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
         <Text style={styles.title}>Focusing on: </Text>
         <Text style={styles.task}> {focusSubject} </Text>
       </View>
-      <View style={{ padding: spacing.sm }}>
+      <View style={{ paddingTop: spacing.sm }}>
         <ProgressBar
           progress={progress}
           color="#5E84E2"
@@ -87,24 +87,24 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.white,
-    textAlign: 'center',
+    textAlign: "center",
   },
   task: {
     color: colors.white,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
   },
   countdown: {
     flex: 0.5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonWrapper: {
     flex: 0.3,
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   clearSubject: {
     paddingBottom: 25,
